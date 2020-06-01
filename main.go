@@ -1,6 +1,6 @@
 package main
 
-import "learngo/test"
+import "learngo/learnings"
 
 func main() {
 	//fmt.Println("Hello World")
@@ -16,7 +16,7 @@ func main() {
 	//fmt.Println("My location is ", location)
 	//fmt.Printf("My gender is %s, %T \n", gender, gender)
 	//fmt.Println("Infered type is ", reflect.TypeOf(age))
-	//tot := test.AddAgeWeight(age, weight)
+	//tot := learnings.AddAgeWeight(age, weight)
 	//fmt.Println("add Age weight is ", tot)
 	//if class := 20; class/10 == 2 {
 	//	fmt.Println("class is 20")
@@ -39,9 +39,9 @@ func main() {
 	//byteToString(byteSlice)
 	//runeSlice := []rune{0x0053, 0x0065, 0x00f1, 0x006f, 0x0072}
 	//runeToString(runeSlice)
-	//test.LearnPointers()
-	//test.LearnInterfaces()
-	test.LearnGoroutines()
+	//learnings.LearnPointers()
+	//learnings.LearnInterfaces()
+	learnings.LearnGoroutines()
 }
 
 //func init() {

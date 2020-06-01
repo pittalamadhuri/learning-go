@@ -1,4 +1,4 @@
-package test
+package learnings
 
 import (
 	"fmt"

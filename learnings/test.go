@@ -1,4 +1,4 @@
-package test
+package learnings
 
 func AddAgeWeight(age int, weight int) (tot int) {
 	tot = age + weight
