@@ -47,6 +47,8 @@ func main() {
 	learnings.LearnPointers()
 	learnings.LearnInterfaces()
 	learnings.LearnGoroutines()
+	learnings.LearnWaitgroups()
+	learnings.LearnWorkerPools()
 }
 
 func init() {
@@ -92,7 +94,7 @@ func runeToString(runeSlice []rune) {
 	//str[0] = 'a'
 }
 
-func findRuneCount(str string){
+func findRuneCount(str string) {
 	lenRune := utf8.RuneCountInString(str)
 	fmt.Printf("rune count in string %s is %d \n", str, lenRune)
 	fmt.Printf("char count in string %s is %d \n", str, len(str))
