@@ -8,7 +8,7 @@ import (
 )
 
 type Job struct {
-	jobId int
+	jobId        int
 	randomNumber int
 }
 
@@ -34,9 +34,8 @@ func findSum(number int) int {
 	return sum
 }
 
-
 //each worker is created here and while the worker is created, he snatches the 10 jobs which are in hold by the jobs channel
-func createWorker(wg *sync.WaitGroup){
+func createWorker(wg *sync.WaitGroup) {
 	for job := range jobs {
 		output := Result{job, findSum(job.randomNumber)}
 		results <- output
@@ -44,11 +43,10 @@ func createWorker(wg *sync.WaitGroup){
 	wg.Done()
 }
 
-
 //creates a pool of workers mentioned above this is just for waiting for them in highlevel
 func createWorkerPool(noOfWorkers int) {
 	var wg sync.WaitGroup
-	for i := 0; i< noOfWorkers; i++ {
+	for i := 0; i < noOfWorkers; i++ {
 		wg.Add(1)
 		go createWorker(&wg)
 	}
@@ -57,11 +55,11 @@ func createWorkerPool(noOfWorkers int) {
 }
 
 //This is where we create jobs, with specifying job Id and random number
-func allocate(noofjobs int){
-	for i:= 0;i<noofjobs; i++ {
+func allocate(noofjobs int) {
+	for i := 0; i < noofjobs; i++ {
 		randomNumber := rand.Intn(999)
 		job := Job{
-			jobId: i,
+			jobId:        i,
 			randomNumber: randomNumber,
 		}
 
@@ -92,7 +90,7 @@ func LearnWorkerPools() {
 	go result(done)
 	noOfWorkers := 10
 	createWorkerPool(noOfWorkers)
-	<- done
+	<-done
 	endTime := time.Now()
 	diff := endTime.Sub(startTime)
 	fmt.Println("\ntotal time take is ", diff.Seconds(), "seconds")

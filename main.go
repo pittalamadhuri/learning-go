@@ -49,6 +49,7 @@ func main() {
 	learnings.LearnGoroutines()
 	learnings.LearnWaitgroups()
 	learnings.LearnWorkerPools()
+	learnings.LearnSelect()
 }
 
 func init() {
