@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"learngo/employee"
 	"learngo/learnings"
 	"reflect"
 	"unicode/utf8"
@@ -50,6 +51,18 @@ func main() {
 	learnings.LearnWaitgroups()
 	learnings.LearnWorkerPools()
 	learnings.LearnSelect()
+	learnings.LearnMutex()
+	// Go is not purely Object oriented, some of the identical natures of Go with Object orientation are below
+
+	//Using structs for classes
+	structs_classes()
+
+	//Using Composition for inheritance
+	composition_inheritance()
+
+	//Using structs for polymorphism
+	structs_polymorphism()
+
 }
 
 func init() {
@@ -104,4 +117,124 @@ func findRuneCount(str string) {
 func mutateRune(runeStr []rune) []rune {
 	runeStr[0] = 'a'
 	return runeStr
+}
+
+func structs_classes() {
+	student1 := learnings.Student{
+		Name:             "Madhuri",
+		Age:              24,
+		FinishedSubjects: 2,
+		TotalSubjects:    10,
+	}
+
+	student1.RemainingSubjects()
+
+	student2 := learnings.Student{} //Object creation is possible without default values in go, hence we need a constructor for the object to be valid
+
+	student2.RemainingSubjects()
+
+	//Hence we create a New() function for initializing the object to avoid invalid/zero objects.. this is done in new package(just for learning)
+	employee1 := employee.New("Tom", 25, 10, 4)
+	employee1.RemainingLeaves()
+}
+
+type pencil struct {
+	brand string
+	cost  string
+}
+
+func (p *pencil) Writing() {
+	fmt.Printf("\n %s pencil is writing", p.brand)
+}
+
+// ipad here is composed of ipad properties and also the pencil properties, it can be similar to inheriting a pencil class
+type ipad struct {
+	gen  string
+	cost string
+	pencil
+}
+
+func (i *ipad) Existing() {
+	fmt.Printf("\n %s gen ipad is Existing with %s pencil", i.gen, i.brand)
+}
+
+//slices inside struct is also possible
+
+type page struct {
+	text   string
+	pageNo int
+}
+
+type book struct {
+	title  string
+	author string
+	pages  []page
+}
+
+func (b *book) describeBook() {
+	fmt.Printf("\n %s book has %d pages ", b.title, len(b.pages))
+}
+
+func composition_inheritance() {
+	ipad1 := ipad{
+		gen:  "7th",
+		cost: "1000",
+		pencil: pencil{
+			brand: "Apple",
+			cost:  "100",
+		},
+	}
+	ipad1.Writing()
+	ipad1.Existing()
+
+	page1 := page{
+		text:   "How I met the kite Runner",
+		pageNo: 1,
+	}
+	page2 := page{
+		text:   "Running kites",
+		pageNo: 13,
+	}
+	var book1 = book{
+		title:  "Kite Runner",
+		author: "Khaled",
+		pages:  []page{page1, page2},
+	}
+	book1.describeBook()
+}
+
+type fixedTime struct {
+	project      string
+	assignedTime int
+}
+
+func (f *fixedTime) timeTaken() int {
+	return f.assignedTime
+}
+
+type variableTime struct {
+	project     string
+	files       int
+	timePerFile int
+}
+
+func (v *variableTime) timeTaken() int {
+	return v.files * v.timePerFile
+}
+
+func structs_polymorphism() {
+	//there are 2 different structs but have the same method implemented based on the time, hence it is identical to polymorphism
+
+	time1 := fixedTime{
+		project:      "Development",
+		assignedTime: 8,
+	}
+	time2 := variableTime{
+		project:     "Presales",
+		files:       12,
+		timePerFile: 1,
+	}
+
+	totalTime := time1.timeTaken() + time2.timeTaken()
+	fmt.Println("\n total time taken is ", totalTime)
 }
